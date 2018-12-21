@@ -1,0 +1,63 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>cloud.frizio.desktop.training</groupId>
+	<artifactId>demo-vertx</artifactId>
+	<version>1.0.0</version>
+	
+	<packaging>jar</packaging>
+
+	<name>Demo</name>
+	<description>Demo project to train with Vert.X </description>
+
+	<url>http://www.demo.frizio.cloud</url>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<distribution>repo</distribution>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+		</license>
+	</licenses>
+
+	<organization>
+		<name>Frizio</name>
+		<url>http://www.frizio.cloud</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<id>maurizio</id>
+			<name>Maurizio La Rocca</name>
+			<email>mrz.larocca@gmail.com</email>
+			<url>http://it.linkedin.com/pub/maurizio-la-rocca/56/128/6a6/</url>
+			<organization>Frizio</organization>
+			<organizationUrl>http://www.frizio.cloud</organizationUrl>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<timezone>-2</timezone>
+		</developer>
+	</developers>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-core</artifactId>
+			<version>3.6.2</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+	</build>
+
+</project>
