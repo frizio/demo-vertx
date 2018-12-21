@@ -43,7 +43,7 @@ public class RandomNumberVertxMain {
 	
 	public void stopAll() {
 		vertx.setTimer( 
-			10000, 
+			5000, 
 			id -> {		
 				vertx.undeploy(
 					producerId, 

@@ -18,7 +18,7 @@ public class RandomNumberProducerVerticle extends AbstractVerticle {
             1000,
             id -> {
                 eventBus.<Integer>send(
-                    "javaboss.channel", 
+                    "the.channel", 
                     random.nextInt(100), 
                     asyncResult -> {
                         if ( asyncResult.succeeded() ) {

@@ -14,7 +14,7 @@ public class RandomNumberConsumerVerticle extends AbstractVerticle {
         EventBus eventBus = getVertx().eventBus();
 		
         eventBus.<Integer>consumer(
-            "javaboss.channel", 
+            "the.channel", 
             message -> {
                 System.out.println("CONSUMER: I have received the message: " + message.body());
                 if ( message.body() >= 50 ) {
