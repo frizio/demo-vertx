@@ -6,8 +6,10 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;
 
 public class RandomNumberProducerVerticle extends AbstractVerticle {
+    
     Random random = new Random(); 
 
+    @Override
     public void start() throws Exception {
         
         EventBus eventBus = getVertx().eventBus();

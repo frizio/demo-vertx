@@ -8,6 +8,7 @@ import io.vertx.core.eventbus.EventBus;
  */
 public class RandomNumberConsumerVerticle extends AbstractVerticle {
     
+    @Override
     public void start() throws Exception {
         
         EventBus eventBus = getVertx().eventBus();
