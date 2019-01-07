@@ -22,17 +22,16 @@ public class RandomNumberProducerVerticle extends AbstractVerticle {
             EMIT_TIME,
             id -> {
                 final Integer value = random.nextInt(MAX_VALUE);
-                System.out.println("PRODUCER: Emit a random number: " + value +  ". Sending them via a message");
+                System.out.println("PRODUCER: Emit a random number: " + value +  ". Sending in the bus..");
                 eventBus.<Integer>send(
                     "the.channel", 
                     value, 
                     asyncResult -> {
                         if ( asyncResult.succeeded() ) {
-                            System.out.println( "PRODUCER: Received reply: " + asyncResult.result().body());
+                            System.out.println("PRODUCER: Received reply: " + asyncResult.result().body());
                         } else {
-                            System.out.println( "PRODUCER: Received exception: " + asyncResult.cause().getMessage() );
+                            System.out.println("PRODUCER: Received exception: " + asyncResult.cause().getMessage());
                         }
-                        System.out.println(" ");
                     }
                 );
             }

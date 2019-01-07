@@ -6,13 +6,15 @@ import io.vertx.core.Vertx;
 public class RandomNumberVertxMain {
 
 	private static final Integer MAX_TIME = 6000;
+	private static final Integer NUMBER_OF_PRODUCERS = 3;
 
 	private Vertx vertx =  Vertx.vertx();
 	private String producerId;
 	private String consumerId;
 	
-	public void startProducer() {
+	public void startProducer(int instances) {
 		DeploymentOptions options = new DeploymentOptions();
+		options.setInstances(instances);
 		vertx.deployVerticle( 
 			RandomNumberProducerVerticle.class, 
 			options, 
@@ -49,7 +51,7 @@ public class RandomNumberVertxMain {
 		vertx.setTimer( 
 			MAX_TIME, 
 			id -> {
-				System.out.println("It's time to undeploy");
+				System.out.println("\nIt's time to undeploy");
 				vertx.undeploy(
 					producerId, 
 					result -> {
@@ -77,7 +79,7 @@ public class RandomNumberVertxMain {
 
 	public static void main(String[] args) {
 		RandomNumberVertxMain main = new  RandomNumberVertxMain();
-		main.startProducer();
+		main.startProducer(NUMBER_OF_PRODUCERS);
 		main.startConsumer();
 		main.stopAll();
 	}
