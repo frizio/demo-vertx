@@ -9,6 +9,8 @@ public class RandomNumberProducerVerticle extends AbstractVerticle {
     
     private static final Integer MAX_VALUE = 100;
 
+    private static final Integer EMIT_TIME = 1500;
+
     Random random = new Random(); 
 
     @Override
@@ -17,7 +19,7 @@ public class RandomNumberProducerVerticle extends AbstractVerticle {
         EventBus eventBus = getVertx().eventBus();
 
         getVertx().setPeriodic( 
-            1000,
+            EMIT_TIME,
             id -> {
                 final Integer value = random.nextInt(MAX_VALUE);
                 System.out.println("PRODUCER: Emit a random number: " + value +  ". Sending them via a message");

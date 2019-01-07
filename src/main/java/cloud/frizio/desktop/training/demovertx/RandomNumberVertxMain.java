@@ -5,6 +5,8 @@ import io.vertx.core.Vertx;
 
 public class RandomNumberVertxMain {
 
+	private static final Integer MAX_TIME = 6000;
+
 	private Vertx vertx =  Vertx.vertx();
 	private String producerId;
 	private String consumerId;
@@ -45,15 +47,16 @@ public class RandomNumberVertxMain {
 	
 	public void stopAll() {
 		vertx.setTimer( 
-			5000, 
-			id -> {		
+			MAX_TIME, 
+			id -> {
+				System.out.println("It's time to undeploy");
 				vertx.undeploy(
 					producerId, 
 					result -> {
 						if (result.succeeded()) {
-				    		System.out.println("Undeployed ok");
+				    		System.out.println("OK, Undeployed producer with ID " + producerId);
 						} else {
-							System.out.println("Undeploy failed!");
+							System.out.println("FAIL Undeploy producer with ID " + producerId);
 						}
 					}
 				);
@@ -61,9 +64,9 @@ public class RandomNumberVertxMain {
 					consumerId, 
 					result -> {
 						if (result.succeeded()) {
-							System.out.println("Undeployed ok");
+							System.out.println("OK, Undeployed consumer with ID " + consumerId);
 						} else {
-							System.out.println("Undeploy failed!");
+							System.out.println("FAIL Undeploy consumer with ID " + consumerId);
 						}
 					}
 				);
