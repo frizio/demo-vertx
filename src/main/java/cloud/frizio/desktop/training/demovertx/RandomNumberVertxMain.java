@@ -2,19 +2,27 @@ package cloud.frizio.desktop.training.demovertx;
 
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
+import io.vertx.core.json.JsonObject;
 
 public class RandomNumberVertxMain {
 
 	private static final Integer MAX_TIME = 6000;
-	private static final Integer NUMBER_OF_PRODUCERS = 3;
+	private static final Integer NUMBER_OF_PRODUCERS = 1;
+	private static final Integer MAX_VALUE = 10;
+
 
 	private Vertx vertx =  Vertx.vertx();
 	private String producerId;
 	private String consumerId;
 	
-	public void startProducer(int instances) {
+	public void startProducer(int instances, int max_value) {
+
 		DeploymentOptions options = new DeploymentOptions();
 		options.setInstances(instances);
+		
+		JsonObject config = new JsonObject().put("the_max_value", max_value);
+    	options.setConfig(config);
+		
 		vertx.deployVerticle( 
 			RandomNumberProducerVerticle.class, 
 			options, 
@@ -79,7 +87,7 @@ public class RandomNumberVertxMain {
 
 	public static void main(String[] args) {
 		RandomNumberVertxMain main = new  RandomNumberVertxMain();
-		main.startProducer(NUMBER_OF_PRODUCERS);
+		main.startProducer(NUMBER_OF_PRODUCERS, MAX_VALUE);
 		main.startConsumer();
 		main.stopAll();
 	}

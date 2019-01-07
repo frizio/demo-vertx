@@ -6,8 +6,6 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;
 
 public class RandomNumberProducerVerticle extends AbstractVerticle {
-    
-    private static final Integer MAX_VALUE = 100;
 
     private static final Integer EMIT_TIME = 1500;
 
@@ -18,10 +16,12 @@ public class RandomNumberProducerVerticle extends AbstractVerticle {
         
         EventBus eventBus = getVertx().eventBus();
 
+        Integer max_value = config().getInteger("the_max_value");
+
         getVertx().setPeriodic( 
             EMIT_TIME,
             id -> {
-                final Integer value = random.nextInt(MAX_VALUE);
+                final Integer value = random.nextInt(max_value);
                 System.out.println("PRODUCER: Emit a random number: " + value +  ". Sending in the bus..");
                 eventBus.<Integer>send(
                     "the.channel", 
