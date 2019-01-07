@@ -8,7 +8,7 @@ public class RandomNumberVertxMain {
 
 	private static final Integer MAX_TIME = 6000;
 	private static final Integer NUMBER_OF_PRODUCERS = 1;
-	private static final Integer MAX_VALUE = 10;
+	private static final Integer MAX_VALUE = 30;
 
 
 	private Vertx vertx =  Vertx.vertx();
@@ -38,8 +38,12 @@ public class RandomNumberVertxMain {
 		);
 	}
 	
-	public void startConsumer() {
-		DeploymentOptions options = new DeploymentOptions().setInstances(2);
+	public void startConsumer(Integer limit_value) {
+		DeploymentOptions options = new DeploymentOptions();
+
+		JsonObject config = new JsonObject().put("the_limit_value", limit_value);
+    	options.setConfig(config);
+
 		vertx.deployVerticle( 
 			RandomNumberConsumerVerticle.class, 
 			options, 
@@ -88,7 +92,7 @@ public class RandomNumberVertxMain {
 	public static void main(String[] args) {
 		RandomNumberVertxMain main = new  RandomNumberVertxMain();
 		main.startProducer(NUMBER_OF_PRODUCERS, MAX_VALUE);
-		main.startConsumer();
+		main.startConsumer(MAX_VALUE/2);
 		main.stopAll();
 	}
 

@@ -5,18 +5,18 @@ import io.vertx.core.eventbus.EventBus;
 
 public class RandomNumberConsumerVerticle extends AbstractVerticle {
 
-    private static final Integer LIMIT_VALUE = 50;
-    
     @Override
     public void start() throws Exception {
         
         EventBus eventBus = getVertx().eventBus();
-		
+        
+        Integer limit_value = config().getInteger("the_limit_value");
+
         eventBus.<Integer>consumer(
             "the.channel", 
             message -> {
                 final Integer received_value = message.body();
-                if ( received_value >= LIMIT_VALUE ) {
+                if ( received_value >= limit_value ) {
                     System.out.println("CONSUMER: I DON'T LIKE " + received_value);
                     message.fail(0, message.body() + " is KOO!");
                 } else {
