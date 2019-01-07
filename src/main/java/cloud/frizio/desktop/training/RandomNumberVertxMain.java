@@ -21,6 +21,7 @@ public class RandomNumberVertxMain {
 				} else {
 					System.out.println("Producer deployment failed!");
 				}
+				System.out.println(" ");
 			}
 		);
 	}
@@ -37,6 +38,7 @@ public class RandomNumberVertxMain {
 				} else {
 					System.out.println("Consumer deployment failed!");
 				}
+				System.out.println(" ");
 			}
 		);
 	}

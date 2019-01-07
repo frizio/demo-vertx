@@ -7,6 +7,8 @@ import io.vertx.core.eventbus.EventBus;
  * RandomNumberConsumerVericle
  */
 public class RandomNumberConsumerVerticle extends AbstractVerticle {
+
+    private static final Integer LIMIT_VALUE = 50;
     
     @Override
     public void start() throws Exception {
@@ -17,10 +19,12 @@ public class RandomNumberConsumerVerticle extends AbstractVerticle {
             "the.channel", 
             message -> {
                 System.out.println("CONSUMER: I have received the message: " + message.body());
-                if ( message.body() >= 50 ) {
-                    message.fail( 0, "I don't like it!");
+                if ( message.body() >= LIMIT_VALUE ) {
+                    System.out.println("CONSUMER: I don'like it!. Sending them...");
+                    message.fail( 0, "KOO!");
                 } else {
-                    message.reply( "ok!" );
+                    System.out.println("CONSUMER: I like it!. Sending them...");
+                    message.reply( "OKK!" );
                 }
             }
         );
