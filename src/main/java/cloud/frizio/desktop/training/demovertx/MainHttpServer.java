@@ -1,6 +1,7 @@
 package cloud.frizio.desktop.training.demovertx;
 
 import io.vertx.core.Vertx;
+import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
 
@@ -30,6 +31,18 @@ public class MainHttpServer {
                 System.out.println( "VERSIONE: " + request.version() );
                 System.out.println( "PATH: " + request.path() );
                 System.out.println( "QUERY: " + request.query() );
+                
+                System.out.println("");
+                System.out.println("PARAMS:");
+                request.params().forEach( 
+                    p -> System.out.println(p.getKey() + ": " + p.getValue()) 
+                );
+                System.out.println("HEADERS");
+			    request.headers().forEach( 
+                    h -> System.out.println(h.getKey() + ": " + h.getValue()) 
+                );
+                System.out.println("");
+                
                 request.handler(
                     buffer -> {
                         System.out.println("SERVER BUFFER...");
