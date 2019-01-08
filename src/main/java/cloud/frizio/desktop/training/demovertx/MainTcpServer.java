@@ -25,7 +25,9 @@ public class MainTcpServer {
                 socket.handler(
                     buffer -> {
                         System.out.println("Open new connection");
-                        System.out.println("SERVER BUFFER: " + buffer.toString());
+                        System.out.println("SERVER BUFFER...");
+                        System.out.println(buffer.toString());
+                        System.out.println("...END SERVER BUFFER \n");
                     }
                 );
             }
