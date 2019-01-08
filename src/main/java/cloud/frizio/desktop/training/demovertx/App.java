@@ -1,4 +1,4 @@
-package cloud.frizio.desktop.training;
+package cloud.frizio.desktop.training.demovertx;
 /**
  * App
  */
