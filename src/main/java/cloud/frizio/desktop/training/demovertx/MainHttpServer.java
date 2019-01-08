@@ -46,6 +46,7 @@ public class MainHttpServer {
                 );
                 System.out.println("");
                 
+                /*
                 request.handler(
                     buffer -> {
                         totalBuffer.appendBuffer(buffer);
@@ -56,6 +57,15 @@ public class MainHttpServer {
                         System.out.println( totalBuffer.toString() );
                     }
                 );
+                */
+
+                request.bodyHandler(
+                    buffer -> {
+                        System.out.println( "Received " + buffer.length() + " bytes");
+                    }
+                );
+
+                // Invio della risposta
                 request.bodyHandler(
                     buffer -> {
                         System.out.println(buffer.toString());
@@ -66,14 +76,6 @@ public class MainHttpServer {
                         response.write("Thanks!");
                         response.end();
                 });
-                
-                /*
-                request.bodyHandler(
-                    buffer -> {
-                        System.out.println( "Received " + buffer.length() + " bytes");
-                    }
-                );
-                */
 
             }
         );
