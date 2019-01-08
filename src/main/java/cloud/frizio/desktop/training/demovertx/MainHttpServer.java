@@ -4,6 +4,7 @@ import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
+import io.vertx.core.http.HttpServerResponse;
 
 /**
  * App
@@ -24,6 +25,8 @@ public class MainHttpServer {
         HttpServer server = vertx.createHttpServer(options);
 
         // Definizione dell’handler di gestione delle richieste
+        Buffer totalBuffer = Buffer.buffer();
+
         server.requestHandler( 
             request -> {
                 System.out.println( "URI: " + request.uri() );
@@ -45,11 +48,33 @@ public class MainHttpServer {
                 
                 request.handler(
                     buffer -> {
-                        System.out.println("SERVER BUFFER...");
-                        System.out.println( buffer.toString() );
-                        System.out.println("...END SERVER BUFFER");
+                        totalBuffer.appendBuffer(buffer);
                     }
                 ); 
+                request.endHandler( 
+                    v -> {
+                        System.out.println( totalBuffer.toString() );
+                    }
+                );
+                request.bodyHandler(
+                    buffer -> {
+                        System.out.println(buffer.toString());
+                        System.out.println("Received " + buffer.length() + " bytes");
+                        HttpServerResponse response = request.response();
+                        response.setStatusCode(200);
+                        response.setChunked(true);
+                        response.write("Thanks!");
+                        response.end();
+                });
+                
+                /*
+                request.bodyHandler(
+                    buffer -> {
+                        System.out.println( "Received " + buffer.length() + " bytes");
+                    }
+                );
+                */
+
             }
         );
 
